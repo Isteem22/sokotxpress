@@ -1,0 +1,136 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #2600ff;
+  background: #f9f9f9;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #ff6600, #ff9900);
+  padding: 1rem 2rem;
+  color: #ffffff;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* Hero */
+.hero {
+  background: url('../images/delivery-bg.jpg') no-repeat center center/cover;
+  color: rgb(13, 0, 194);
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+}
+
+.hero p {
+  margin: 20px 0;
+}
+
+.btn, .btn-secondary {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn {
+  background: #ff6600;
+  color: #fff;
+}
+
+.btn:hover {
+  background: #e65c00;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #ff6600;
+  border: 2px solid #ff6600;
+}
+
+.btn-secondary:hover {
+  background: #ff6600;
+  color: #fff;
+}
+
+/* Sections */
+.page-header {
+  text-align: center;
+  padding: 50px 20px;
+  background: #fff;
+}
+
+.stats, .steps, .pricing, .about, .form-section, .features {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.stat, .step, .plan, .feature {
+  margin: 20px;
+  display: inline-block;
+  max-width: 250px;
+}
+
+/* Forms */
+form input, form textarea, form button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+form button {
+  background: #ff6600;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #e65c00;
+}
+
+/* Footer */
+footer {
+  background: #f86300;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
