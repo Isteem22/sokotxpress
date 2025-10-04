@@ -5,58 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SokotXpress - Delivery App</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Basic Navbar Styles */
+    body { margin: 0; font-family: Arial, sans-serif; }
+    header { background: #ff6600; color: white; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+    .logo { font-size: 22px; font-weight: bold; }
+    .nav-links { list-style: none; display: flex; margin: 0; padding: 0; }
+    .nav-links li { margin-left: 20px; }
+    .nav-links a { color: white; text-decoration: none; }
+
+    /* Dropdown Menu */
+    .dropdown { position: relative; display: inline-block; }
+    .dropbtn { font-size: 20px; cursor: pointer; border: none; background: none; color: white; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 5px;
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover { background: #f1f1f1; }
+    .dropdown:hover .dropdown-content { display: block; }
+  </style>
 </head>
 <body>
-  <!-- Navbar -->
+  <!-- Navigation -->
   <header>
     <nav class="navbar">
       <div class="logo">SokotXpress</div>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="how-it-works.html">How It Works</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="track.html">Track Delivery</a></li>
-        <li><a href="agent.html">Join as Agent</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li>
+          <!-- 3-dot dropdown -->
+          <div class="dropdown">
+            <button class="dropbtn">⋮</button>
+            <div class="dropdown-content">
+              <a href="about.html">About</a>
+              <a href="how-it-works.html">How It Works</a>
+              <a href="pricing.html">Pricing</a>
+              <a href="track.html">Track</a>
+              <a href="register.html">Register</a>
+              <a href="login.html">Login</a>
+              <a href="agent.html">Join as Agent</a>
+              <a href="contact.html">Contact</a>
+            </div>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
       <h1>Track Your Delivery Agent in Real-Time</h1>
-      <p>SokotXpress connects you with verified delivery agents. Safe, fast, and reliable.</p>
+      <p>Connecting you with trusted delivery agents across Nigeria.</p>
       <div class="hero-buttons">
         <a href="track.html" class="btn">Track Delivery</a>
-        <a href="agent.html" class="btn-secondary">Join as Delivery Agent</a>
+        <a href="agent.html" class="btn-secondary">Join as Agent</a>
       </div>
     </div>
   </section>
 
   <!-- Stats -->
   <section class="stats">
-    <div class="stat"><h2>300+</h2><p>Active Delivery Agents</p></div>
+    <div class="stat"><h2>300+</h2><p>Active Agents</p></div>
     <div class="stat"><h2>5,000+</h2><p>Happy Users</p></div>
-    <div class="stat"><h2>25,000+</h2><p>Successful Deliveries</p></div>
+    <div class="stat"><h2>25,000+</h2><p>Deliveries Done</p></div>
   </section>
 
   <!-- Why Choose -->
   <section class="why-choose">
     <h2>Why Choose SokotXpress</h2>
     <div class="features">
-      <div class="feature"><h3>Real-Time Tracking</h3><p>Track your delivery agent live with ease.</p></div>
-      <div class="feature"><h3>Verified Agents</h3><p>Every agent has ID & verification for safety.</p></div>
-      <div class="feature"><h3>Fast Delivery</h3><p>Quick, reliable service across Nigeria.</p></div>
-      <div class="feature"><h3>Professional Service</h3><p>Trusted by thousands of happy customers.</p></div>
+      <div class="feature"><h3>📍 Real-Time Tracking</h3><p>Track agent’s location live.</p></div>
+      <div class="feature"><h3>✅ Verified Agents</h3><p>Every agent has a unique ID.</p></div>
+      <div class="feature"><h3>👤 Agent Profiles</h3><p>View details before booking.</p></div>
+      <div class="feature"><h3>⚡ Fast Delivery</h3><p>Quick and reliable service.</p></div>
     </div>
   </section>
-
   <!-- Footer -->
   <footer>
-    <p>© 2025 SokotXpress. All rights reserved.</p>
-    <p>Contact: support@sokotxpress.com | +234 800 123 4567</p>
+    <p>© 2025 SokotXpress | support@sokotxpress.com</p>
   </footer>
 </body>
 </html>
