@@ -3,100 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SokotXpress - Delivery App</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SokotXpress - Secure Delivery</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* Basic Navbar Styles */
-    body { margin: 0; font-family: Arial, sans-serif; }
-    header { background: #ff6600; color: white; }
-    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-    .logo { font-size: 22px; font-weight: bold; }
-    .nav-links { list-style: none; display: flex; margin: 0; padding: 0; }
-    .nav-links li { margin-left: 20px; }
-    .nav-links a { color: white; text-decoration: none; }
-
-    /* Dropdown Menu */
-    .dropdown { position: relative; display: inline-block; }
-    .dropbtn { font-size: 20px; cursor: pointer; border: none; background: none; color: white; }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background: white;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 5px;
-    }
-    .dropdown-content a {
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ff9966, #ff5e62);
       color: #333;
-      padding: 10px 15px;
-      text-decoration: none;
-      display: block;
     }
-    .dropdown-content a:hover { background: #f1f1f1; }
-    .dropdown:hover .dropdown-content { display: block; }
+
+    /* Login/Register screen */
+    #auth {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #36d1dc, #5b86e5);
+    }
+    .auth-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 300px;
+    }
+    .auth-box h2 {
+      margin-bottom: 15px;
+    }
+    .auth-box input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    .auth-box button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #ff6600;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .auth-box button:hover {
+      background: #e05500;
+    }
+
+    /* Main app */
+    #app {
+      display: none;
+    }
+    header {
+      background: #ff6600;
+      padding: 1rem;
+      color: white;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .search-box {
+      text-align: center;
+      margin: 20px;
+    }
+    .search-box input {
+      width: 70%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    .agents {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .agent-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    .agent-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    .agent-card h3 {
+      margin: 5px 0;
+    }
+    .agent-card p {
+      margin: 3px 0;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      margin: 0 5px;
+      font-size: 1.2rem;
+      color: #555;
+      transition: 0.3s;
+    }
+    .social-icons a:hover {
+      color: #ff6600;
+    }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <header>
-    <nav class="navbar">
-      <div class="logo">SokotXpress</div>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li>
-          <!-- 3-dot dropdown -->
-          <div class="dropdown">
-            <button class="dropbtn">⋮</button>
-            <div class="dropdown-content">
-              <a href="about.html">About</a>
-              <a href="how-it-works.html">How It Works</a>
-              <a href="pricing.html">Pricing</a>
-              <a href="track.html">Track</a>
-              <a href="register.html">Register</a>
-              <a href="login.html">Login</a>
-              <a href="agent.html">Join as Agent</a>
-              <a href="contact.html">Contact</a>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Track Your Delivery Agent in Real-Time</h1>
-      <p>Connecting you with trusted delivery agents across Nigeria.</p>
-      <div class="hero-buttons">
-        <a href="track.html" class="btn">Track Delivery</a>
-        <a href="agent.html" class="btn-secondary">Join as Agent</a>
+  <!-- Auth section -->
+  <div id="auth">
+    <div class="auth-box">
+      <h2>Login / Register</h2>
+      <input type="text" id="fullName" placeholder="Full Name" required>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="text" id="phone" placeholder="Phone Number" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button onclick="login()">Enter Website</button>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app">
+    <header>SokotXpress Agents</header>
+
+    <!-- Search -->
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search agent by name, phone, or address...">
+    </div>
+
+    <!-- Agents -->
+    <section class="agents" id="agentList">
+      <div class="agent-card">
+        <img src="https://via.placeholder.com/100" alt="Agent">
+        <h3>Aliyu Musa</h3>
+        <p><strong>Phone:</strong> 08012345678</p>
+        <p><strong>State:</strong> Sokoto</p>
+        <p><strong>LGA:</strong> Wamakko</p>
+        <p><strong>Area:</strong> Gidan Sanda</p>
+        <div class="social-icons">
+          <a href="https://wa.me/2348167099560" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Stats -->
-  <section class="stats">
-    <div class="stat"><h2>300+</h2><p>Active Agents</p></div>
-    <div class="stat"><h2>5,000+</h2><p>Happy Users</p></div>
-    <div class="stat"><h2>25,000+</h2><p>Deliveries Done</p></div>
-  </section>
+      <div class="agent-card">
+        <img src="https://via.placeholder.com/100" alt="Agent">
+        <h3>Fatima Yahaya</h3>
+        <p><strong>Phone:</strong> 08123456789</p>
+        <p><strong>State:</strong> Lagos</p>
+        <p><strong>LGA:</strong> Ikeja</p>
+        <p><strong>Area:</strong> Computer Village</p>
+        <div class="social-icons">
+          <a href="https://wa.me/2348167099560" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </section>
+  </div>
 
-  <!-- Why Choose -->
-  <section class="why-choose">
-    <h2>Why Choose SokotXpress</h2>
-    <div class="features">
-      <div class="feature"><h3>📍 Real-Time Tracking</h3><p>Track agent’s location live.</p></div>
-      <div class="feature"><h3>✅ Verified Agents</h3><p>Every agent has a unique ID.</p></div>
-      <div class="feature"><h3>👤 Agent Profiles</h3><p>View details before booking.</p></div>
-      <div class="feature"><h3>⚡ Fast Delivery</h3><p>Quick and reliable service.</p></div>
-    </div>
-  </section>
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 SokotXpress | support@sokotxpress.com</p>
-  </footer>
+  <script>
+    // Simulate login
+    function login() {
+      let fullName = document.getElementById("fullName").value.trim();
+      let username = document.getElementById("username").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+      let password = document.getElementById("password").value.trim();
+
+      if(fullName && username && phone && password){
+        document.getElementById("auth").style.display = "none";
+        document.getElementById("app").style.display = "block";
+      } else {
+        alert("Please fill all fields!");
+      }
+    }
+
+    // Search agents
+    document.getElementById("search").addEventListener("input", function() {
+      let filter = this.value.toLowerCase();
+      let agents = document.querySelectorAll(".agent-card");
+      agents.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        card.style.display = text.includes(filter) ? "" : "none";
+      });
+    });
+  </script>
 </body>
 </html>
