@@ -1,287 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SokotXpress – Secure Delivery Platform</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SokotXpress</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { margin: 0; font-size: 22px; }
+    nav { display: flex; gap: 15px; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; margin-bottom: 20px; }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #2a5298;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background: #1e3c72; }
 
-<style>
-  * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-  body {
-    margin: 0; padding: 0;
-    background: linear-gradient(135deg, #0088ff, #00bfa6);
-    color: #fff; display: flex;
-    flex-direction: column; align-items: center; min-height: 100vh;
-  }
-  .card {
-    background: rgba(255,255,255,0.1);
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    padding: 25px; margin-top: 40px;
-    width: 90%; max-width: 420px; text-align: center;
-    backdrop-filter: blur(10px);
-  }
-  input, select {
-    width: 100%; padding: 10px; margin: 6px 0;
-    border: none; border-radius: 8px;
-  }
-  button {
-    width: 100%; padding: 10px; border: none; border-radius: 8px;
-    font-weight: 600; cursor: pointer; background: #fff; color: #0088ff;
-  }
-  button:hover { background: #f1f1f1; }
-  .hidden { display: none; }
-  h2 { margin-bottom: 10px; color: #fff; }
-  a { color: yellow; text-decoration: underline; cursor: pointer; }
-  .agent-card {
-    background: rgba(255,255,255,0.15);
-    border-radius: 10px; padding: 10px; margin: 10px 0;
-    display: flex; align-items: center; gap: 10px; color: #fff;
-  }
-  .agent-card img {
-    width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
-  }
-  .search-box input { width: 100%; padding: 8px; border-radius: 8px; border: none; }
-  footer {
-    margin-top: auto;
-    padding: 15px;
-    text-align: center;
-    background: rgba(0,0,0,0.2);
-  }
-  .social-icons a {
-    margin: 0 8px;
-    color: #fff;
-    font-size: 1.4rem;
-    transition: 0.3s;
-  }
-  .social-icons a:hover { color: yellow; }
-</style>
+    .hidden { display: none; }
+
+    .agent-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    .agent-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .social-icons {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .social-icons a {
+      margin: 0 8px;
+      font-size: 24px;
+      text-decoration: none;
+      color: #2a5298;
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <h1>SokotXpress</h1>
+    <nav>
+      <a href="#" id="homeLink">Home</a>
+      <a href="#" id="howItWorksLink">How It Works</a>
+      <a href="#" id="signOutBtn" class="hidden">Sign Out</a>
+    </nav>
+  </header>
 
-<!-- Start screen -->
-<div class="card" id="start">
-  <h2>Welcome to SokotXpress</h2>
-  <p>Fast, reliable, and secure delivery platform</p>
-  <button onclick="showCard('login')">Login</button>
-  <button onclick="showCard('register')">Register</button>
-</div>
-
-<!-- Login form -->
-<div class="card hidden" id="login">
-  <h3>Login to Your Account</h3>
-  <input type="text" id="loginPhone" placeholder="Phone Number">
-  <input type="password" id="loginPassword" placeholder="Password">
-  <button onclick="loginUser()">Login</button>
-  <p>Forgot your password?</p>
-  <p>New here? <a onclick="showCard('register')">Create Account</a></p>
-</div>
-
-<!-- Register form -->
-<div class="card hidden" id="register">
-  <h3>Create Account</h3>
-  <select id="regRole" onchange="toggleRole()">
-    <option value="user">Register as User</option>
-    <option value="agent">Register as Delivery Agent</option>
-  </select>
-
-  <!-- User registration -->
-  <div id="userFields">
-    <input type="text" id="userName" placeholder="Full Name">
-    <input type="text" id="userPhone" placeholder="Phone Number">
-    <input type="password" id="userPassword" placeholder="Password">
+  <!-- Login / Signup -->
+  <div id="authSection" class="container">
+    <h2>Login to your account</h2>
+    <input type="text" id="loginUsername" placeholder="Username" />
+    <input type="password" id="loginPassword" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p style="text-align:center;">Forgot Your Password?</p>
+    <hr />
+    <p style="text-align:center;">New to SokotXpress?</p>
+    <button onclick="showSignup()">Create an Account</button>
   </div>
 
-  <!-- Agent registration -->
-  <div id="agentFields" class="hidden">
-    <input type="file" id="agentPhoto" accept="image/*">
-    <input type="text" id="agentFullName" placeholder="Full Name">
-    <input type="text" id="agentUsername" placeholder="Username">
-    <input type="text" id="agentPhone" placeholder="Phone Number">
-    <select id="agentState" onchange="loadLGA()">
-      <option value="">Select State</option>
-      <option>Sokoto</option><option>Kano</option><option>Kaduna</option>
-      <option>Lagos</option><option>Abuja</option><option>Katsina</option>
-      <option>Borno</option><option>Plateau</option>
+  <!-- Signup -->
+  <div id="signupSection" class="container hidden">
+    <h2>Create Account</h2>
+    <select id="roleSelect">
+      <option value="user">Register as User</option>
+      <option value="agent">Register as Agent</option>
     </select>
-    <select id="agentLGA">
-      <option value="">Select Local Government</option>
-    </select>
-    <input type="text" id="agentAddress" placeholder="Address / Area">
-    <input type="password" id="agentPassword" placeholder="Password">
+    <input type="text" id="fullName" placeholder="Full Name" />
+    <input type="text" id="username" placeholder="Username" />
+    <input type="tel" id="phone" placeholder="Phone Number" />
+    <input type="password" id="password" placeholder="Password" />
+    <div id="agentExtra" class="hidden">
+      <input type="file" id="agentPicture" accept="image/*" />
+      <select id="state">
+        <option value="">Select State</option>
+        <option value="Sokoto">Sokoto</option>
+        <option value="Kano">Kano</option>
+        <option value="Lagos">Lagos</option>
+        <option value="Abuja">Abuja</option>
+        <!-- Add more states as needed -->
+      </select>
+      <input type="text" id="lga" placeholder="Local Government" />
+      <input type="text" id="address" placeholder="Address" />
+    </div>
+    <button onclick="signup()">Sign Up</button>
+    <button style="background:#aaa;margin-top:10px;" onclick="showLogin()">Back to Login</button>
   </div>
 
-  <button onclick="registerUser()">Register</button>
-  <p>Already have an account? <a onclick="showCard('login')">Login</a></p>
-</div>
+  <!-- Home -->
+  <div id="homeSection" class="container hidden">
+    <h2>Delivery Agents Directory</h2>
+    <input type="text" id="searchInput" placeholder="Search by name, username, state or address" oninput="filterAgents()" />
+    <div id="agentList"></div>
 
-<!-- Dashboard -->
-<div class="card hidden" id="dashboard">
-  <h2>Welcome, <span id="userNameDisplay"></span></h2>
-  <p id="userRole"></p>
-  <button onclick="showCard('search')">Find Delivery Agent</button>
-  <button onclick="logout()">Sign Out</button>
-</div>
-
-<!-- Agent Search -->
-<div class="card hidden" id="search">
-  <h3>Search Delivery Agents</h3>
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search by name, username, state, or address..." onkeyup="searchAgents()">
+    <div class="social-icons">
+      <a href="https://wa.me/08167099560" target="_blank">📱</a>
+      <a href="https://facebook.com/YOUR_ADMIN_FACEBOOK" target="_blank">📘</a>
+      <a href="https://www.tiktok.com/@YOUR_ADMIN_TIKTOK" target="_blank">🎵</a>
+      <a href="https://www.instagram.com/YOUR_ADMIN_INSTAGRAM" target="_blank">📸</a>
+    </div>
   </div>
-  <div id="agentList"></div>
-  <button onclick="showCard('dashboard')">Back</button>
-</div>
 
-<footer>
-  <p>Contact Admin:</p>
-  <div class="social-icons">
-    <a href="https://wa.me/08167099560"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://facebook.com/YOURPAGE"><i class="fab fa-facebook"></i></a>
-    <a href="https://tiktok.com/@YOURHANDLE"><i class="fab fa-tiktok"></i></a>
-  </div>
-  <p>© 2025 SokotXpress</p>
-</footer>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://bkufnzumashljglkmgsq.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrdWZuenVtYXNobGpnbGttZ3NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjM5MzMsImV4cCI6MjA3NDk5OTkzM30.narXzjjW4HTUb32ovoRPH9CPaKsVyax1n12DwZIou-Y';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    const bucketName = 'agent-pictures';
 
-<script type="module">
-// Import Supabase
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-const SUPABASE_URL = "https://bkufnzumashljglkmgsq.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrdWZuenVtYXNobGpnbGttZ3NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjM5MzMsImV4cCI6MjA3NDk5OTkzM30.narXzjjW4HTUb32ovoRPH9CPaKsVyax1n12DwZIou-Y";
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const authSection = document.getElementById('authSection');
+    const signupSection = document.getElementById('signupSection');
+    const homeSection = document.getElementById('homeSection');
+    const agentExtra = document.getElementById('agentExtra');
+    const roleSelect = document.getElementById('roleSelect');
+    const signOutBtn = document.getElementById('signOutBtn');
 
-// --- UI Control ---
-window.showCard = (id) => {
-  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-};
+    roleSelect.addEventListener('change', () => {
+      if (roleSelect.value === 'agent') {
+        agentExtra.classList.remove('hidden');
+      } else {
+        agentExtra.classList.add('hidden');
+      }
+    });
 
-window.toggleRole = () => {
-  const role = document.getElementById('regRole').value;
-  document.getElementById('userFields').classList.toggle('hidden', role !== 'user');
-  document.getElementById('agentFields').classList.toggle('hidden', role !== 'agent');
-};
+    function showSignup() {
+      authSection.classList.add('hidden');
+      signupSection.classList.remove('hidden');
+    }
+    function showLogin() {
+      signupSection.classList.add('hidden');
+      authSection.classList.remove('hidden');
+    }
 
-// --- Load LGA Options ---
-window.loadLGA = () => {
-  const state = document.getElementById('agentState').value;
-  const lgaSelect = document.getElementById('agentLGA');
-  lgaSelect.innerHTML = "";
-  let lgas = [];
-  if (state === "Sokoto") lgas = ["Wamakko","Gwadabawa","Bodinga","Dange Shuni","Kware"];
-  if (state === "Kano") lgas = ["Nassarawa","Tarauni","Fagge","Dala"];
-  if (state === "Kaduna") lgas = ["Zaria","Chikun","Igabi"];
-  if (state === "Lagos") lgas = ["Ikeja","Epe","Badagry"];
-  if (state === "Abuja") lgas = ["Gwagwalada","Bwari","Kuje"];
-  if (state === "Katsina") lgas = ["Daura","Kankia","Funtua"];
-  if (state === "Borno") lgas = ["Maiduguri","Bama","Jere"];
-  if (state === "Plateau") lgas = ["Jos North","Jos South"];
-  lgas.forEach(l => {
-    const opt = document.createElement('option');
-    opt.textContent = l; lgaSelect.appendChild(opt);
-  });
-};
+    async function signup() {
+      const role = roleSelect.value;
+      const fullName = document.getElementById('fullName').value;
+      const username = document.getElementById('username').value;
+      const phone = document.getElementById('phone').value;
+      const password = document.getElementById('password').value;
 
-// --- Register User or Agent ---
-window.registerUser = async function() {
-  const role = document.getElementById('regRole').value;
-  if (role === "user") {
-    const full_name = userName.value.trim();
-    const phone = userPhone.value.trim();
-    const password = userPassword.value.trim();
-    if (!full_name || !phone || !password) return alert("All fields required");
-    await supabase.from("users").insert([{ full_name, phone, password, role }]);
-    localStorage.setItem("user", JSON.stringify({ full_name, phone, role }));
-    document.getElementById("userNameDisplay").textContent = full_name;
-    document.getElementById("userRole").textContent = "User";
-    showCard("dashboard");
-  } else {
-    const full_name = agentFullName.value.trim();
-    const username = agentUsername.value.trim();
-    const phone = agentPhone.value.trim();
-    const state = agentState.value.trim();
-    const lga = agentLGA.value.trim();
-    const address = agentAddress.value.trim();
-    const password = agentPassword.value.trim();
-    const photo = agentPhoto.files[0];
-    if (!full_name || !username || !phone || !state || !lga || !address || !password || !photo)
-      return alert("All fields required for agent");
+      if (role === 'user') {
+        await supabaseClient.from('users').insert([{ full_name: fullName, username, phone, password }]);
+      } else {
+        const state = document.getElementById('state').value;
+        const lga = document.getElementById('lga').value;
+        const address = document.getElementById('address').value;
+        const file = document.getElementById('agentPicture').files[0];
 
-    const { data: uploadData, error: uploadError } = await supabase
-      .storage.from("agents").upload(`photos/${Date.now()}_${photo.name}`, photo);
-    if (uploadError) return alert("Image upload failed");
-    const photo_url = `${SUPABASE_URL}/storage/v1/object/public/agents/${uploadData.path}`;
-    const { error } = await supabase
-      .from("agents")
-      .insert([{ full_name, username, phone, state, lga, address, password, photo_url }]);
-    if (error) return alert("Error: " + error.message);
-    alert("Agent registered successfully!");
-    showCard("login");
-  }
-};
+        let imageUrl = '';
+        if (file) {
+          const { data, error } = await supabaseClient.storage
+            .from(bucketName)
+            .upload(`${Date.now()}_${file.name}`, file, { cacheControl: '3600', upsert: false });
+          if (!error) {
+            const { data: publicUrl } = supabaseClient.storage.from(bucketName).getPublicUrl(data.path);
+            imageUrl = publicUrl.publicUrl;
+          } else {
+            alert('Image upload failed');
+            return;
+          }
+        }
 
-// --- Login ---
-window.loginUser = async function() {
-  const phone = loginPhone.value.trim();
-  const password = loginPassword.value.trim();
-  const { data, error } = await supabase
-    .from("agents")
-    .select("*")
-    .eq("phone", phone)
-    .eq("password", password);
-  if (data && data.length) {
-    const user = data[0];
-    localStorage.setItem("user", JSON.stringify(user));
-    document.getElementById("userNameDisplay").textContent = user.full_name;
-    document.getElementById("userRole").textContent = "Delivery Agent";
-    showCard("dashboard");
-  } else {
-    alert("Invalid credentials");
-  }
-};
+        await supabaseClient.from('agents').insert([{ 
+          full_name: fullName, 
+          username, 
+          phone, 
+          state, 
+          lga, 
+          address, 
+          password, 
+          picture_url: imageUrl 
+        }]);
+      }
 
-// --- Search Agents ---
-window.searchAgents = async function() {
-  const q = searchInput.value.toLowerCase();
-  const { data: agents } = await supabase.from("agents").select("*");
-  const results = agents.filter(a =>
-    a.full_name.toLowerCase().includes(q) ||
-    a.username.toLowerCase().includes(q) ||
-    a.state.toLowerCase().includes(q) ||
-    a.address.toLowerCase().includes(q)
-  );
-  const list = document.getElementById("agentList");
-  list.innerHTML = results.length ? "" : "<p>No agent found.</p>";
-  results.forEach(a => {
-    list.innerHTML += `
-      <div class="agent-card">
-        <img src="${a.photo_url}" alt="agent">
-        <div>
-          <strong>${a.full_name}</strong><br>
-          @${a.username}<br>
-          📍 ${a.address}, ${a.lga}, ${a.state}<br>
-          ☎️ ${a.phone}
-        </div>
-      </div>`;
-  });
-};
+      alert('Registration successful!');
+      showLogin();
+    }
 
-// --- Logout ---
-window.logout = () => {
-  localStorage.removeItem("user");
-  showCard("start");
-};
+    async function login() {
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
 
-// --- Auto Login ---
-const saved = localStorage.getItem("user");
-if (saved) {
-  const u = JSON.parse(saved);
-  document.getElementById("userNameDisplay").textContent = u.full_name;
-  document.getElementById("userRole").textContent = u.role === "agent" ? "Delivery Agent" : "User";
-  showCard("dashboard");
-}
-</script>
+      const { data: userData } = await supabaseClient.from('users').select('*').eq('username', username).eq('password', password).single();
+      const { data: agentData } = await supabaseClient.from('agents').select('*').eq('username', username).eq('password', password).single();
+
+      if (userData || agentData) {
+        authSection.classList.add('hidden');
+        homeSection.classList.remove('hidden');
+        signOutBtn.classList.remove('hidden');
+        loadAgents();
+      } else {
+        alert('Invalid login credentials');
+      }
+    }
+
+    signOutBtn.addEventListener('click', () => {
+      homeSection.classList.add('hidden');
+      signOutBtn.classList.add('hidden');
+      showLogin();
+    });
+
+    async function loadAgents() {
+      const { data } = await supabaseClient.from('agents').select('*');
+      const list = document.getElementById('agentList');
+      list.innerHTML = '';
+      data.forEach(agent => {
+        const card = document.createElement('div');
+        card.className = 'agent-card';
+        card.innerHTML = `
+          <img src="${agent.picture_url}" alt="agent" />
+          <div>
+            <strong>${agent.full_name}</strong><br>
+            @${agent.username}<br>
+            ${agent.phone}<br>
+            ${agent.state}, ${agent.lga}<br>
+            ${agent.address}
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function filterAgents() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.agent-card');
+      cards.forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(search) ? 'flex' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
