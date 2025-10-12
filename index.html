@@ -146,12 +146,18 @@
     </div>
   </div>
 
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <script>
-    const supabaseUrl = 'https://bkufnzumashljglkmgsq.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrdWZuenVtYXNobGpnbGttZ3NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjM5MzMsImV4cCI6MjA3NDk5OTkzM30.narXzjjW4HTUb32ovoRPH9CPaKsVyax1n12DwZIou-Y';
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-    const bucketName = 'agent-pictures';
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script>
+  // ✅ Supabase connection details
+  const supabaseUrl = "https://bkufnzumashljglkmgsq.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrdWZuenVtYXNobGpnbGttZ3NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjM5MzMsImV4cCI6MjA3NDk5OTkzM30.narXzjjW4HTUb32ovoRPH9CPaKsVyax1n12DwZIou-Y";
+
+  // ✅ Create Supabase client
+  const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+  // ✅ Storage bucket name (must match exactly in Supabase)
+  const bucketName = "agent-pictures";
+</script>
 
     const authSection = document.getElementById('authSection');
     const signupSection = document.getElementById('signupSection');
@@ -276,3 +282,4 @@
   </script>
 </body>
 </html>
+
